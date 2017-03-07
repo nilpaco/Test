@@ -8,5 +8,9 @@ define(function (require) {
     // full IDs, like:
     var print = require('print');
 
+    require(["d3"], function(d3) {
+        console.log(d3.version);
+    });
+
     print(messages.getHello());
 });
