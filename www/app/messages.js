@@ -57,6 +57,10 @@ define(function () {
                         .attr("text-anchor", "middle")
                         .text(function(d){return "200.000€"});
 
+            arcs.append("path")
+                        .attr("d", arc)
+                        .attr("fill", function (d) { return color(d.data); });
+
             return canvas;
 
             });
