@@ -45,14 +45,17 @@ define(function () {
                         .append("g")
                         .attr("class", "arc");
 
-            // Append text to inside the circle
-            arcs.append("text")
-                        .attr("dx", function(d){return -20})
-                        .text(function(d){return "Revenue 200.000€"})
-
-            arcs.append("path")
-                        .attr("d", arc)
-                        .attr("fill", function (d) { return color(d.data); });
+            // Append text to inside the circle ('dy' attr is for vertical positioning)
+            group.append("text")
+                        .attr("x", 0)
+                        .attr("dy", "-1em")
+                        .attr("text-anchor", "middle")
+                        .html(function(d){return "Revenue"});
+            group.append("text")
+                        .attr("x", 0)
+                        .attr("dy", "0em")
+                        .attr("text-anchor", "middle")
+                        .text(function(d){return "200.000€"});
 
             return canvas;
 
