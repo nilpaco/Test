@@ -15,7 +15,9 @@ define(function () {
                             .style("stroke-width", 5)
                             .style("stroke", "red")
                             .attr("fill", "none");
-*/
+                */
+
+
             // Faked data
             var data = [40, 60];
             // Radius size
@@ -55,13 +57,82 @@ define(function () {
                         .attr("x", 0)
                         .attr("dy", "0em")
                         .attr("text-anchor", "middle")
-                        .text(function(d){return "200.000€"});
+                        .html(function(d){return "200.000€"});
 
             arcs.append("path")
                         .attr("d", arc)
                         .attr("fill", function (d) { return color(d.data); });
 
-            return canvas;
+
+            var margin = {
+                top: 30,
+                right: 20,
+                bottom: 30,
+                left: 50
+            };
+            var width = 85;
+            var height = 20;
+
+            var parseDate = d3.time.format("%d-%b-%y").parse;
+
+            var x = d3.time.scale().range([0, width]);
+            var y = d3.scale.linear().range([height, 0]);
+
+            var xAxis = d3.svg.axis().scale(x)
+                .orient("bottom").ticks(5);
+
+            var yAxis = d3.svg.axis().scale(y)
+                .orient("left").ticks(5);
+
+            var valueline = d3.svg.line()
+                .x(function (d) {
+                return x(d.date);
+                })
+                .y(function (d) {
+                return y(d.close);
+            });
+            
+            var svg = d3.select("g")
+                .append("svg")
+                .attr("x", -40)
+                .attr("y", 5)
+                .attr("r", 25)
+                .attr("fill", "none")
+                .append("g");
+
+            // Get the data
+            var data = [{
+                date: "1-May-12",
+                close: "6000000"
+            }, {
+                date: "30-Apr-12",
+                close: "0"
+            }, {
+                date: "27-Apr-12",
+                close: "3"
+            }, {
+                date: "26-Apr-12",
+                close: "2"
+            }, {
+                date: "25-Apr-12",
+                close: "0"
+            }];
+
+            data.forEach(function (d) {
+                d.date = parseDate(d.date);
+                d.close = +d.close;
+            });
+
+            // Scale the range of the data
+            x.domain(d3.extent(data, function (d) {
+                return d.date;
+                }));
+            y.domain([0, d3.max(data, function (d) {
+                return d.close;
+                })]);
+
+            svg.append("path") // Add the valueline path.
+            .attr("d", valueline(data));
 
             });
         }
