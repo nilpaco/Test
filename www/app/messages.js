@@ -70,7 +70,7 @@ define(function () {
                 bottom: 30,
                 left: 50
             };
-            var width = 85;
+            var width = 80;
             var height = 20;
 
             var parseDate = d3.time.format("%d-%b-%y").parse;
@@ -95,7 +95,7 @@ define(function () {
             var svg = d3.select("g")
                 .append("svg")
                 .attr("x", -40)
-                .attr("y", 5)
+                .attr("y", 0)
                 .attr("r", 25)
                 .attr("fill", "none")
                 .append("g");
@@ -103,19 +103,19 @@ define(function () {
             // Get the data
             var data = [{
                 date: "1-May-12",
-                close: "6000000"
+                close: "1"
             }, {
                 date: "30-Apr-12",
-                close: "0"
+                close: "2"
             }, {
                 date: "27-Apr-12",
                 close: "3"
             }, {
                 date: "26-Apr-12",
-                close: "2"
+                close: "4"
             }, {
                 date: "25-Apr-12",
-                close: "0"
+                close: "5"
             }];
 
             data.forEach(function (d) {
